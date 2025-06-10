@@ -162,7 +162,7 @@ void gpu_bfs_coalesced_shared_faster(const uint32_t N, const uint32_t M,
 
   uint32_t host_frontier_size = 1;
   // Main BFS loop
-  CPU_TIMER_INIT(BASELINE_BFS)
+  CPU_TIMER_INIT(BFS)
   dim3 block_dim(24, 32);
   dim3 grid_dim(568);
   cudaGraph_t graph;
@@ -208,11 +208,11 @@ void gpu_bfs_coalesced_shared_faster(const uint32_t N, const uint32_t M,
     }
   }
   cudaDeviceSynchronize();
-  CPU_TIMER_STOP(BASELINE_BFS)
+  CPU_TIMER_STOP(BFS)
 #ifdef DEBUG_PRINTS
-  CPU_TIMER_PRINT(BASELINE_BFS)
+  CPU_TIMER_PRINT(BFS)
 #endif
-  tot_time += CPU_TIMER_ELAPSED(BASELINE_BFS);
+  tot_time += CPU_TIMER_ELAPSED(BFS);
   printf("after execution %f\n", tot_time);
   CUDA_TIMER_INIT(D2H_copy)
   CHECK_CUDA(cudaMemcpy(h_distances, d_distances, N * sizeof(int),

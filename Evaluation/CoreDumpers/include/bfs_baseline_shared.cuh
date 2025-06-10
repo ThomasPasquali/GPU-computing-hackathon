@@ -98,7 +98,7 @@ void gpu_bfs_shared_baseline(
   uint32_t level = 0;
 
   // Main BFS loop
-  CPU_TIMER_INIT(BASELINE_BFS)
+  CPU_TIMER_INIT(BFS)
   while (current_frontier_size > 0) {
 
     #ifdef DEBUG_PRINTS
@@ -160,11 +160,11 @@ void gpu_bfs_shared_baseline(
       nvtxRangePop();
     #endif
   }
-  CPU_TIMER_STOP(BASELINE_BFS)
+  CPU_TIMER_STOP(BFS)
   #ifdef DEBUG_PRINTS
-    CPU_TIMER_PRINT(BASELINE_BFS)
+    CPU_TIMER_PRINT(BFS)
   #endif
-  tot_time += CPU_TIMER_ELAPSED(BASELINE_BFS);
+  tot_time += CPU_TIMER_ELAPSED(BFS);
 
   CUDA_TIMER_INIT(D2H_copy)
   CHECK_CUDA(cudaMemcpy(h_distances, d_distances, N * sizeof(int), cudaMemcpyDeviceToHost));
@@ -175,8 +175,7 @@ void gpu_bfs_shared_baseline(
   tot_time += CUDA_TIMER_ELAPSED(D2H_copy);
   CUDA_TIMER_DESTROY(D2H_copy)
 
-  printf("\n[OUT] Total%s BFS time: %f ms\n", is_placeholder ? "" : " BASELINE", tot_time);
-  if (!is_placeholder) printf("[OUT] Graph diameter: %u\n", level);
+  printf("\n[OUT] Total BFS time: %f ms\n", tot_time);
 
   // Free device memory
   cudaFree(d_row_offsets);

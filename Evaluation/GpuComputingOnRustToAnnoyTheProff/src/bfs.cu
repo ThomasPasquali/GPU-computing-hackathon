@@ -296,7 +296,7 @@ void gpu_bfs(
     uint32_t num_blocks = CEILING(N, block_size);
 
     // Main BFS loop
-    CPU_TIMER_INIT(BASELINE_BFS)
+    CPU_TIMER_INIT(BFS)
     while (cont) {
 
 #ifdef DEBUG_PRINTS
@@ -324,11 +324,11 @@ void gpu_bfs(
         nvtxRangePop();
 #endif
     }
-    CPU_TIMER_STOP(BASELINE_BFS)
+    CPU_TIMER_STOP(BFS)
 #ifdef DEBUG_PRINTS
-    CPU_TIMER_PRINT(BASELINE_BFS)
+    CPU_TIMER_PRINT(BFS)
 #endif
-    tot_time += CPU_TIMER_ELAPSED(BASELINE_BFS);
+    tot_time += CPU_TIMER_ELAPSED(BFS);
 
     CUDA_TIMER_INIT(D2H_copy)
     CHECK_CUDA(cudaMemcpy(h_distances, d_distances, N * sizeof(int), cudaMemcpyDeviceToHost));

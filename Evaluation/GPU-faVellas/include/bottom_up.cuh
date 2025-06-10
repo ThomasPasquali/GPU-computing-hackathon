@@ -128,7 +128,7 @@ void gpu_bfs_bottom_up(
   uint32_t level = 0;
 
   // Main BFS loop
-  CPU_TIMER_INIT(BASELINE_BFS)
+  CPU_TIMER_INIT(BFS)
   while (next_frontier_size > 0)
   {
 
@@ -186,11 +186,11 @@ void gpu_bfs_bottom_up(
 
   // Handling the timing
 
-  CPU_TIMER_STOP(BASELINE_BFS)
+  CPU_TIMER_STOP(BFS)
 #ifdef DEBUG_PRINTS
-  CPU_TIMER_PRINT(BASELINE_BFS)
+  CPU_TIMER_PRINT(BFS)
 #endif
-  tot_time += CPU_TIMER_ELAPSED(BASELINE_BFS);
+  tot_time += CPU_TIMER_ELAPSED(BFS);
 
   CUDA_TIMER_INIT(D2H_copy)
   CHECK_CUDA(cudaMemcpy(h_distances, d_distances, N * sizeof(int), cudaMemcpyDeviceToHost));
@@ -202,10 +202,9 @@ void gpu_bfs_bottom_up(
   CUDA_TIMER_DESTROY(D2H_copy)
 
   // Printing the output information
-  printf("\n[OUT] Total%s BFS time: %f ms\n", is_placeholder ? "" : " BASELINE", tot_time);
+  printf("\n[OUT] Total BFS time: %f ms\n", tot_time);
   uint32_t final_level = 0;
   CHECK_CUDA(cudaMemcpy(&final_level, d_level, sizeof(uint32_t), cudaMemcpyDeviceToHost));
-  printf("[OUT] Graph diameter: %u\n", final_level);
 
   // Freeing the dynamically allocated array
   delete[] h_visited;

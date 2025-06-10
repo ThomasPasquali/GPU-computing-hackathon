@@ -33,40 +33,7 @@ void gpu_bfs(
    * IMPLEMENT HERE YOUR CUDA BFS
    * Feel free to structure you code (i.e. create other files, macros etc.)
    * *********************/
-
-
-  // !! This is an example of how to keep track of runtime. Make sure to include everything. !!
-  float tot_time = 0.0f;
-  CPU_TIMER_INIT(BFS_preprocess)
-
-  // <<< preprocess >>>
-
-  // CHECK_CUDA(cudaDeviceSynchronize());
-  CPU_TIMER_STOP(BFS_preprocess)
-  tot_time += CPU_TIMER_ELAPSED(BFS_preprocess);
-  CPU_TIMER_PRINT(BFS_preprocess)
-
-  CPU_TIMER_INIT(BFS)
-
-  // <<< kernel >>>
   gpu_bfs_shared_baseline(N, M, h_rowptr, h_colidx, source, h_distances, false);
-
-  CHECK_CUDA(cudaDeviceSynchronize());
-  CPU_TIMER_STOP(BFS)
-  tot_time += CPU_TIMER_ELAPSED(BFS);
-  CPU_TIMER_PRINT(BFS)
-
-  CPU_TIMER_INIT(BFS_postprocess)
-
-  // <<< postprocess >>>
-
-  // CHECK_CUDA(cudaDeviceSynchronize());
-  CPU_TIMER_STOP(BFS_postprocess)
-  tot_time += CPU_TIMER_ELAPSED(BFS_postprocess);
-  CPU_TIMER_PRINT(BFS_postprocess)
-
-  // This output format is MANDATORY, DO NOT CHANGE IT
-  printf("\n[OUT] Total BFS time: %f ms\n" RESET, tot_time);
 }
 
 int main(int argc, char **argv) {
