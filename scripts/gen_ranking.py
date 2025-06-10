@@ -62,6 +62,8 @@ def plot_ranking(ax: matplotlib.axes.Axes, x, y, title, y_label=''):
     if y_label: ax.set_ylabel(y_label)
     ax.grid(True, axis='y')
     ax.set_xticks(range(len(x)), [GROUPS_ALIASES_DICT.get(g, g) for g in x], rotation=45)
+    # ax.set_ylim(0.9, 1.5)
+    ax.axhline(y=1, color='red', linestyle='--', linewidth=2)
 
     # Add medal emojis to the first three bars
     # for i, bar in enumerate(bars):

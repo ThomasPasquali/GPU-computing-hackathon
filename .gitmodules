@@ -1,10 +1,10 @@
 [submodule "distributed_mmio"]
 	path = distributed_mmio
-	url = git@github.com:HicrestLaboratory/distributed_mmio.git
+	url = https://github.com/HicrestLaboratory/distributed_mmio.git
 [submodule "MtxMan"]
 	path = MtxMan
 	url = git@github.com:ThomasPasquali/MtxMan.git
 [submodule "SbatchMan"]
 	path = SbatchMan
-	url = git@github.com:LorenzoPichetti/SbatchMan.git
+	url = https://github.com/LorenzoPichetti/SbatchMan.git
 	branch = example

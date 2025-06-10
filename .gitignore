@@ -1,10 +1,15 @@
 .vscode/
+
 .venv/
-bin/
 scripts/__pycache__/
+
+bin/
+
 scripts/*.png
 scripts/*.json
 scripts/*.jsonl
+!scripts/gpu-computing-hackathon-submissions.json
+!scripts/ranking_plot.png
 
 *.nsys-rep
 *.sqlite
